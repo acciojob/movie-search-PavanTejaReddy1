@@ -6,24 +6,24 @@ const App = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [errMsg, setErrMsg] = useState("");
 
-  async function getMovieDetails(e) {
+  function getMovieDetails(e) {
     e.preventDefault();
 
     setMovieDetails([]);
     setErrMsg("");
 
-    try {
-      const dataRes = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=99eb9fd1`);
-      const data = await dataRes.json();
-
-      if (data.Response === "False") {
+    fetch(`https://www.omdbapi.com/?s=${input}&apikey=99eb9fd1`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.Response === "False") {
+          setErrMsg("Invalid movie name. Please try again.");
+        } else {
+          setMovieDetails(data.Search);
+        }
+      })
+      .catch(() => {
         setErrMsg("Invalid movie name. Please try again.");
-      } else {
-        setMovieDetails(data.Search);
-      }
-    } catch (err) {
-      setErrMsg("Invalid movie name. Please try again.");
-    }
+      });
   }
 
   return (
