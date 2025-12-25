@@ -29,8 +29,10 @@ const App = () => {
   return (
     <div>
       <p>Search Movie</p>
+    <form onSubmit={getMovieDetails}>
       <input type="text" onChange={(e) => setInput(e.target.value)} value={input} />
-      <button type="submit" onClick={getMovieDetails}>Search</button>
+      <button type="submit">Search</button>
+    </form>
 
       {errMsg && <p className="error">{errMsg}</p>}
 
