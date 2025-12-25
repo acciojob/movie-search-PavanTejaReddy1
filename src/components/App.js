@@ -36,13 +36,15 @@ const App = () => {
 
       {errMsg && <p className="error">{errMsg}</p>}
 
+    <ul>
       {movieDetails.map((movie) => (
-        <div key={movie.imdbID}>
-          <p>{movie.Title} ({movie.Year})</p>
-          <img src={movie.Poster} alt={movie.Title} />
-        </div>
+        <li key={movie.imdbID}>
+        <p>{movie.Title} ({movie.Year})</p>
+        <img src={movie.Poster} alt={movie.Title} />
+        </li>
       ))}
-    </div>
+    </ul>
+  </div>
   );
 };
 
