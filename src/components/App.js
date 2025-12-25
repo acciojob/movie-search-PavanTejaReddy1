@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
-import './../styles/App.css';
+import "./../styles/App.css";
 
 const App = () => {
-  
   const [input, setInput] = useState("");
   const [movieDetails, setMovieDetails] = useState([]);
   const [errMsg, setErrMsg] = useState("");
@@ -15,9 +13,7 @@ const App = () => {
     setErrMsg("");
 
     try {
-      const dataRes = await fetch(
-        `https://www.omdbapi.com/?s=${input}&apikey=99eb9fd1`
-      );
+      const dataRes = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=99eb9fd1`);
       const data = await dataRes.json();
 
       if (data.Response === "False") {
@@ -29,32 +25,23 @@ const App = () => {
       setErrMsg("Invalid movie name. Please try again.");
     }
   }
-  
+
   return (
     <div>
       <p>Search Movie</p>
+      <input type="text" onChange={(e) => setInput(e.target.value)} value={input} />
+      <button type="submit" onClick={getMovieDetails}>Search</button>
 
-      <form onSubmit={getMovieDetails}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <input type="submit" value="Search" />
-      </form>
-  
       {errMsg && <p className="error">{errMsg}</p>}
 
       {movieDetails.map((movie) => (
         <div key={movie.imdbID}>
-          <p>
-            {movie.Title} ({movie.Year})
-          </p>
+          <p>{movie.Title} ({movie.Year})</p>
           <img src={movie.Poster} alt={movie.Title} />
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
